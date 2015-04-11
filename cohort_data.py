@@ -46,7 +46,7 @@ def sort_by_cohort(filename):
         person_data = line.rstrip().split("|")
         if person_data[4] == "Spring 2015":
             spring_15.append(person_data[0] + " " + person_data[1])
-            
+
         all_student_info.append(person_data) # created to iterate over in the list comprehension
 
     #practice list comprehension
@@ -80,9 +80,35 @@ def students_by_house(filename):
     ravenclaw = []
     tas = []
 
-    # Code goes here
+    student_data = open(filename)
+    for line in student_data:
+        student_line_split = line.rstrip().split("|")
+        if student_line_split[3] == "" and student_line_split[4] != "":
+            tas.append(student_line_split[1])
+        elif student_line_split[3] != "" and student_line_split[2] == "Gryffindor":
+            gryffindor.append(student_line_split[1])
+        elif student_line_split[3] != "" and student_line_split[2] == "Hufflepuff":
+            hufflepuff.append(student_line_split[1])
+        elif student_line_split[3] != "" and student_line_split[2] == "Slytherin":
+            slytherin.append(student_line_split[1])
+        elif student_line_split[3] != "" and student_line_split[2] == "Ravenclaw":
+            ravenclaw.append(student_line_split[1])
+        elif student_line_split[3] != "" and student_line_split[2] == "Dumbledore's Army":
+            dumbledores_army.append(student_line_split[1])
+
+    
+    houses_tas = [gryffindor, hufflepuff, slytherin, ravenclaw, dumbledores_army, tas,]
+    house_names = ['Gryffindor', 'Hufflepuff', 'Slytherin', "Dumbledore's Army", 'Ravenclaw', 'TAs']
+    i = 0
+    for house in houses_tas:
+        house.sort()
+        print str(house_names[i]) + ":", house
+        i += 1
+
+    all_students = [gryffindor, hufflepuff, slytherin, dumbledores_army, ravenclaw, tas]
 
     return all_students
+    
 
 
 def all_students_tuple_list(filename):
@@ -150,4 +176,4 @@ def find_house_members_by_student_name(student_list):
 
     return
 
-sort_by_cohort('cohort_data.txt')
+students_by_house('cohort_data.txt')
