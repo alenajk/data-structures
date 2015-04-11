@@ -125,8 +125,18 @@ def all_students_tuple_list(filename):
 
     student_list = []
 
-    # Code goes here
+    student_data = open(filename)
 
+    for line in student_data:
+        student_data_split = line.rstrip().split('|')
+        st_name = student_data_split[0] + " " + student_data_split[1]
+        student_info = [st_name, student_data_split[2], student_data_split[3], student_data_split[4]]
+        student_tuple = tuple(student_info)
+        # student_info = (st_name,student_data_split[2], student_data_split[3], student_data_split[4])        
+        student_list.append(student_tuple)
+
+
+    print student_list
     return student_list
 
 
@@ -176,4 +186,4 @@ def find_house_members_by_student_name(student_list):
 
     return
 
-students_by_house('cohort_data.txt')
+all_students_tuple_list('cohort_data.txt')
